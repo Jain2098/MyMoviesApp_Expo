@@ -3,7 +3,7 @@ import React from "react";
 import { styles } from "../theme/style";
 import { useNavigation } from "@react-navigation/native";
 import { img500 } from "../api/api";
-import { CustomImage } from "./CustomImage";
+import { CustomImage } from "../helper/CustomImage";
 import { fallbackImg } from "../config/config";
 
 var { height, width } = Dimensions.get("window");

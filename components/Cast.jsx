@@ -1,7 +1,7 @@
 import { View, Text, ScrollView, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
 import { img500, imgOriginal } from '../api/api';
-import { CustomImage } from './CustomImage';
+import { CustomImage } from '../helper/CustomImage';
 import { fallbackPersonImage } from '../config/config';
 
 export default function Cast({cast, navigation}) {
