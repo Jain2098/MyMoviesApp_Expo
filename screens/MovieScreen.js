@@ -121,7 +121,9 @@ export default function MovieScreen() {
           </Text>
 
           {/* Genres */}
-          <View className='flex-row justify-center space-x-3 align-middle'>
+
+          {/* UNABLE TO DO SCROLL AT THE END SET WRAP*/}
+          <View className='flex-row flex-wrap justify-center space-x-3 align-middle'>
             {movieDetails?.genres &&
               movieDetails?.genres?.map((genre, index) => {
                 return (
@@ -131,6 +133,7 @@ export default function MovieScreen() {
                 );
               })}
           </View>
+
 
           {/* Content here */}
           <Text className='text-neutral-400 px-4 tracking-wider text-justify'>{movieDetails?.overview}</Text>
