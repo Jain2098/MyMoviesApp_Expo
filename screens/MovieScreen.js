@@ -94,7 +94,7 @@ export default function MovieScreen() {
             style={{ width: width, height: height * 0.6 }}
             onError={() => setSourceImg(fallbackImg)}
           /> */}
-          <CustomImage initialSource={posterImg} fallbackImage={fallbackImg} style={{ width: width, height: height * 0.6 }} />
+          <CustomImage initialSource={posterImg} fallbackImage={fallbackImg} contentFit={"cover"} style={{ width: width, height: height * 0.6 }} />
 
           <LinearGradient
             colors={["transparent", "rgba(23,23,23,0.8)", "rgba(23,23,23,1)"]}
