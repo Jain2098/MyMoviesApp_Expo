@@ -10,7 +10,7 @@ import Cast from "../components/Cast";
 import MovieList from "../components/MovieList";
 import Loading from "../components/Loading";
 import { getSimilarMovie, getSingleMovie, img780, imgOriginal } from "../api/api";
-import { CustomImage } from "../components/CustomImage";
+import { CustomImage } from "../helper/CustomImage";
 import { fallbackImg } from "../config/config";
 
 var { width, height } = Dimensions.get("window");

@@ -10,7 +10,7 @@ import { useNavigation } from "@react-navigation/native";
 import { DrawerActions } from "@react-navigation/native";
 import Loading from "../components/Loading";
 import { getTrendingMovies, getUpcomingMovies, getTopRatedMovies } from "../api/api";
-import { useCustomBackAction } from "../components/useCustomBackAction";
+import { useCustomBackAction } from "../helper/useCustomBackAction";
 
 const ios = Platform.OS == "ios";
 
@@ -110,14 +110,14 @@ export default function MovieHome() {
       <SafeAreaView className={`${ios ? "-mb-2" : "mb-3"} mt-2`}>
         <StatusBar style='light' />
         <View className='flex-row justify-between items-center ms-4'>
-          <TouchableOpacity onPress={() => navigation.dispatch(DrawerActions.openDrawer())}>
-            <Bars3CenterLeftIcon size='30' strokeWidth={2} color='white' />
+          <TouchableOpacity style={{width:40}} onPress={() => navigation.dispatch(DrawerActions.openDrawer())}>
+            <Bars3CenterLeftIcon size='30' strokeWidth={3} color='white' />
           </TouchableOpacity>
           <Text className='text-white text-3xl font-bold'>
             <Text style={styles.text}>M</Text>ovies
           </Text>
-          <TouchableOpacity onPress={() => navigation.navigate("Search")}>
-            <MagnifyingGlassIcon size='30' strokeWidth={2} color='white' />
+          <TouchableOpacity style={{width:40}} onPress={() => navigation.navigate("Search")}>
+            <MagnifyingGlassIcon size='30' strokeWidth={3} color='white' />
           </TouchableOpacity>
         </View>
       </SafeAreaView>

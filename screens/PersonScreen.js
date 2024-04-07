@@ -10,7 +10,7 @@ import Carousel from "react-native-snap-carousel";
 import { MovieCard } from "../components/MovieCard";
 import Loading from "../components/Loading";
 import { getPersonDetails, getPersonMovies } from "../api/api";
-import { CustomImage } from "../components/CustomImage";
+import { CustomImage } from "../helper/CustomImage";
 import { fallbackPersonImage } from "../config/config";
 
 var { width, height } = Dimensions.get("window");

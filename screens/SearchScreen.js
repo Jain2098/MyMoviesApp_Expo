@@ -2,12 +2,12 @@ import { View, Text, Dimensions, Platform, TextInput, TouchableOpacity, ScrollVi
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ChevronLeftIcon, XMarkIcon } from "react-native-heroicons/outline";
-import { styles } from "../theme/style";
+import { styles, theme } from "../theme/style";
 import { useNavigation } from "@react-navigation/native";
 import Loading from "../components/Loading";
 // import { debounce } from "lodash";
 import { img500, searchMovie } from "../api/api";
-import { CustomImage } from "../components/CustomImage";
+import { CustomImage } from "../helper/CustomImage";
 import { fallbackImg } from "../config/config";
 
 var { height, width } = Dimensions.get("window");
@@ -65,10 +65,16 @@ export default function SearchScreen() {
 
   return (
     <SafeAreaView className='bg-neutral-800 flex-1'>
+      <View className='pb-2 pt-5'>
       <View className='mx-4 mb-3 flex-row justify-between items-center border border-neutral-500 rounded-full flex-nowrap'>
-        <TouchableOpacity style={styles.background} className='rounded-xl p-1 m-1 w-1/12' onPress={() => navigation.goBack()}>
+        {/* <TouchableOpacity style={styles.background} className='rounded-xl p-1 m-1 w-1/12' onPress={() => navigation.goBack()}>
           <ChevronLeftIcon size={25} color='white' />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
+        <View className='flex-row items-center w-1.5/12'>
+          <TouchableOpacity onPress={() => navigation.goBack()} style={styles.background} className='rounded-full p-2 m-1 bg-neutral-500'>
+            <ChevronLeftIcon size='20' color='white' strokeWidth={3} />
+          </TouchableOpacity>
+        </View>
         <View className='flex-1 items-center'>
           <TextInput
             placeholder='Search Movies'
@@ -80,11 +86,11 @@ export default function SearchScreen() {
         </View>
         <View className='flex-row items-center w-1.5/12'>
           <TouchableOpacity onPress={handleClearText} className='rounded-full p-2 m-1 bg-neutral-500'>
-            <XMarkIcon size='20' color='white' />
+            <XMarkIcon size='20' color='white' strokeWidth={3} />
           </TouchableOpacity>
         </View>
       </View>
-
+      </View>
       {/* items from Search API */}
       {loading && <Loading />}
 
@@ -105,8 +111,17 @@ export default function SearchScreen() {
             </View>
           </ScrollView>
         ):(
-        <View className='flex-row justify-center mx-5'>
-          <Image source={require("../assets/search-backdrop-1.webp")} className='aspect-video h-96 w-full ' />
+        <View className={`flex-row justify-center mx-5 overflow-hidden`}>
+          <Image 
+              source={require("../assets/search-backdrop-1.webp")} 
+              className='aspect-video h-96 w-full' 
+              style={{
+                transform: [
+                  {rotateX: '20deg'},
+                  {perspective: 50}
+                ], 
+              }} 
+          />
         </View>
       )}
     </SafeAreaView>
