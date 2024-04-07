@@ -10,19 +10,22 @@ export const useCustomBackAction = () => {
     React.useCallback(() => {
       const onBackPress = () => {
         // Check if we're at the first screen of the stack
+        console.log("navigation.isFocused(): ",navigation.isFocused())
         if (!navigation.isFocused()) {
           // If not focused, do nothing. This means another screen is being displayed
+          console.log("Not focused")
           return false;
         }
 
         if (navigation.canGoBack()) {
           // If we can go back in the navigation stack, allow the default back action
+          console.log("navigation.canGoBack(): ", navigation.canGoBack())
           return false;
         }
 
         // Custom back action (double press to exit)
         if (backPressCount === 0) {
-          setBackPressCount(1);
+          setBackPressCount((previous)=>previous+1);
           setTimeout(() => setBackPressCount(0), 2000);
           ToastAndroid.showWithGravity("Press back again to exit", ToastAndroid.SHORT, ToastAndroid.CENTER);
           return true; // Prevent the default back behavior (exiting the app)
