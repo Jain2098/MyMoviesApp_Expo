@@ -1,5 +1,5 @@
-import { View, Text, Platform, TouchableOpacity, FlatList, BackHandler, Alert, ToastAndroid } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
+import { View, Text, Platform, TouchableOpacity, FlatList, Dimensions, StyleSheet, Animated } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import { Bars3CenterLeftIcon, MagnifyingGlassIcon } from "react-native-heroicons/outline";
@@ -11,6 +11,7 @@ import { DrawerActions } from "@react-navigation/native";
 import Loading from "../components/Loading";
 import { getTrendingMovies, getUpcomingMovies, getTopRatedMovies } from "../api/api";
 import { useCustomBackAction } from "../helper/useCustomBackAction";
+import { useDrawerStatus } from "@react-navigation/drawer";
 
 const ios = Platform.OS == "ios";
 
@@ -21,6 +22,7 @@ export default function MovieHome() {
   const [loadingTrendingMovies, setLoadingTrendingMovies] = useState(false);
   const [loadingUpcomingMovies, setLoadingUpcomingMovies] = useState(false);
   const [loadingTopMovies, setLoadingTopMovies] = useState(false);
+  // console.log('isDrawerOpen', isDrawerOpen);
   // const [backPressCount, setBackPressCount] = useState(0);
 
   // useEffect(() => {
@@ -42,6 +44,48 @@ export default function MovieHome() {
   useCustomBackAction();
 
   const navigation = useNavigation();
+  
+  // const navigationState = useNavigationState(state => state);
+  // const [currentDrawerStatus, setCurrentDrawerStatus] = useState(false);
+
+  // useEffect(() => {
+  //   // Update the component state based on the navigation state
+  //   console.log("Checking....")
+  //   setCurrentDrawerStatus(isDrawerOpen(navigationState));
+  // }, [navigationState]);
+
+
+  const drawerStatus = useDrawerStatus();
+  const isDrawerOpen = drawerStatus === 'open';
+  const animatedValue = useRef(new Animated.Value(0)).current;
+  const animatedStyle = {
+    backgroundColor: 'rgb(38 38 38)',
+    transform: [
+      {
+        translateX: animatedValue.interpolate({
+        inputRange: [0, 1],
+        outputRange: [0, Dimensions.get('window').width * 0.25]
+      })
+    },
+      {
+        rotateY: animatedValue.interpolate({
+        inputRange: [0, 1],
+        outputRange: ['0deg', '-60deg']
+      })
+    },
+      {perspective: 800},
+    ]
+  };
+
+  useEffect(() => {
+    Animated.timing(animatedValue, {
+      toValue: isDrawerOpen ? 1 : 0,
+      duration: 500,
+      useNativeDriver: true,
+    }).start();
+  }, [isDrawerOpen, animatedValue]);
+
+
 
   useEffect(() => {
     fetchTrendingMovies();
@@ -105,7 +149,8 @@ export default function MovieHome() {
   };
 
   return (
-    <View className='flex-1 bg-neutral-800 px-2'>
+    <View className={`flex-1 bg-neutral-800 px-2`}>
+    <Animated.View style={animatedStyle}>
       {/* Header */}
       <SafeAreaView className={`${ios ? "-mb-2" : "mb-3"} mt-2`}>
         <StatusBar style='light' />
@@ -122,6 +167,18 @@ export default function MovieHome() {
         </View>
       </SafeAreaView>
       <FlatList data={mainListData} renderItem={renderItem} keyExtractor={(item) => item.type} />
+    </Animated.View>
     </View>
   );
 }
+
+
+const customStyles = StyleSheet.create({
+  style1: {
+    transform: [
+      {perspective: 800},
+      {translateX: Dimensions.get('window').width * 0.25},
+      {rotateY: '-60deg'},
+    ]
+  }
+});
