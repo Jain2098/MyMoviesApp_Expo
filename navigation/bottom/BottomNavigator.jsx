@@ -1,10 +1,10 @@
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Cog6ToothIcon, HeartIcon, HomeIcon } from 'react-native-heroicons/solid';
-import TvHome from '../../screens/TvHome';
 import DrawerNavigator from '../drawer/DrawerNavigator';
 import { theme } from '../../theme/style';
 import { getCurrentRouteName } from '../../helper/getCurrentRouteName';
+import FavoriteScreen from '../../screens/FavoriteScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -80,9 +80,13 @@ export default function BottomNavigator() {
             })}
         />
       <Tab.Screen
-              name ="tv" 
-              options={{headerShown: false, tabBarShowLabel: false, tabBarIcon:({color})=><HeartIcon color={color} />}}
-              component={TvHome}
+              name ="favorite" 
+              options={{
+                headerShown: false, 
+                tabBarShowLabel: false, 
+                tabBarIcon:({color})=><HeartIcon color={color} />
+              }}
+              component={FavoriteScreen}
       />
     </Tab.Navigator>
   )
