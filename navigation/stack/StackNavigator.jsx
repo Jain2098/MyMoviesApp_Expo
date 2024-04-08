@@ -5,6 +5,8 @@ import PersonScreen from '../../screens/PersonScreen';
 import SearchScreen from '../../screens/SearchScreen';
 import SplashScreen from '../../screens/SplashScreen';
 import Parent from './Parent';
+import GenreScreen from '../../screens/GenreScreen';
+import VerticalDataScreen from '../../screens/VerticalDataScreen';
 
 
 const Stack = createNativeStackNavigator();
@@ -18,6 +20,8 @@ export default function StackNavigator() {
         <Stack.Screen name="Person" options={{headerShown: false}} component={PersonScreen} />
         <Stack.Screen name="Search" options={{headerShown: false}} component={SearchScreen} />
         <Stack.Screen name ="HomeScreen" options={{headerShown: false}} component={HomeScreen} />
+        <Stack.Screen name ="Genre" options={{headerShown: false}} component={GenreScreen} />
+        <Stack.Screen name ="VerticalDataScreen" options={{headerShown: false}} component={VerticalDataScreen} />
       </Stack.Navigator>
   );
 }
