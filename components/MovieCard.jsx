@@ -1,6 +1,8 @@
 import { Image, Text, TouchableWithoutFeedback, View } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient';
 import { img500 } from '../api/api';
+import { CustomImage } from '../helper/CustomImage';
+import { fallbackImg } from '../config/config';
 
 
 
@@ -10,9 +12,17 @@ export const MovieCard = ({ item, handleClick, width, height, imgWidth, imgHeigh
   return (
       <TouchableWithoutFeedback onPress={()=>handleClick(item)}>
         <View className='relative'>
-          <Image 
+          {/* <Image 
               source={{uri: url}} 
               style={{width: width*imgWidth, height: height*imgHeight}} 
+              className="rounded-3xl"
+          /> */}
+          <CustomImage
+              initialSource={url}
+              fallbackImage={fallbackImg}
+              contentFit='cover'
+              type='MOVIE CAROUSEL'
+              style={{width: width*imgWidth, height: height*imgHeight}}
               className="rounded-3xl"
           />
           <LinearGradient
