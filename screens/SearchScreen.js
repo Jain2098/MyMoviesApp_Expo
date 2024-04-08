@@ -8,10 +8,7 @@ import Loading from "../components/Loading";
 // import { debounce } from "lodash";
 import { img500, searchMovie } from "../api/api";
 import { CustomImage } from "../helper/CustomImage";
-import { fallbackImg } from "../config/config";
-
-var { height, width } = Dimensions.get("window");
-const ios = Platform.OS == "ios";
+import { Global_height, Global_width, fallbackImg } from "../config/config";
 
 export default function SearchScreen() {
   const navigation = useNavigation();
@@ -102,7 +99,7 @@ export default function SearchScreen() {
                 return (
                   <TouchableWithoutFeedback key={index} onPress={() => navigation.navigate("Movie", item)}>
                     <View className='w-1/2 p-2 space-y-2 mb-1'>
-                      <CustomImage initialSource={img500(item?.poster_path)} fallbackImage={fallbackImg} style={{ width: width * 0.4, height: height * 0.3 }} />
+                      <CustomImage initialSource={img500(item?.poster_path)} fallbackImage={fallbackImg} style={{ width: Global_width * 0.4, height: Global_height * 0.3 }} />
                       <Text className='text-neutral-200 text-center text-sm font-semibold mt-1'>{item.title}</Text>
                     </View>
                   </TouchableWithoutFeedback>

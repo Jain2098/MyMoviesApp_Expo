@@ -12,8 +12,7 @@ import Loading from "../components/Loading";
 import { getTrendingMovies, getUpcomingMovies, getTopRatedMovies } from "../api/api";
 import { useCustomBackAction } from "../helper/useCustomBackAction";
 import { useDrawerStatus } from "@react-navigation/drawer";
-
-const ios = Platform.OS == "ios";
+import { Global_ios } from "../config/config";
 
 export default function MovieHome() {
   const [trendingMovies, setTrendingMovies] = useState([]);
@@ -149,10 +148,10 @@ export default function MovieHome() {
   };
 
   return (
-    <View className={`flex-1 bg-neutral-800 px-2`}>
+    <View className={`flex-1 bg-neutral-800 px-2 pb-20`}>
     <Animated.View style={animatedStyle}>
       {/* Header */}
-      <SafeAreaView className={`${ios ? "-mb-2" : "mb-3"} mt-2`}>
+      <SafeAreaView className={`${Global_ios ? "-mb-2" : "mb-3"} mt-2`}>
         <StatusBar style='light' />
         <View className='flex-row justify-between items-center ms-4'>
           <TouchableOpacity style={{width:40}} onPress={() => navigation.dispatch(DrawerActions.openDrawer())}>
@@ -173,12 +172,12 @@ export default function MovieHome() {
 }
 
 
-const customStyles = StyleSheet.create({
-  style1: {
-    transform: [
-      {perspective: 800},
-      {translateX: Dimensions.get('window').width * 0.25},
-      {rotateY: '-60deg'},
-    ]
-  }
-});
+// const customStyles = StyleSheet.create({
+//   style1: {
+//     transform: [
+//       {perspective: 800},
+//       {translateX: Dimensions.get('window').width * 0.25},
+//       {rotateY: '-60deg'},
+//     ]
+//   }
+// });

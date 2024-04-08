@@ -11,11 +11,7 @@ import { MovieCard } from "../components/MovieCard";
 import Loading from "../components/Loading";
 import { getPersonDetails, getPersonMovies } from "../api/api";
 import { CustomImage } from "../helper/CustomImage";
-import { fallbackPersonImage } from "../config/config";
-
-var { width, height } = Dimensions.get("window");
-const ios = Platform.OS == "ios";
-const verticalMargin = ios ? "" : "my-3";
+import { Global_height, Global_topMargin, Global_width, fallbackPersonImage } from "../config/config";
 
 export default function PersonScreen() {
   const navigation = useNavigation();
@@ -78,7 +74,7 @@ export default function PersonScreen() {
   return (
     <ScrollView className='flex-1 bg-neutral-900' contentContainerStyle={{ paddingBottom: 20 }}>
       {/* Header */}
-      <SafeAreaView className={`z-20 w-full flex-row justify-between items-center px-4 ${verticalMargin}`}>
+      <SafeAreaView className={`z-20 w-full flex-row justify-between items-center px-4 ${Global_topMargin}`}>
         <TouchableOpacity style={styles.background} className='rounded-xl p-1' onPress={() => navigation.goBack()}>
           <ChevronLeftIcon size={28} strokeWidth={2.5} color='white' />
         </TouchableOpacity>
@@ -110,7 +106,8 @@ export default function PersonScreen() {
                 initialSource={profileImg}
                 fallbackImage={fallback}
                 contentFit='cover'
-                style={{ width: width * 0.8, height: height * 0.4 }}
+                type='PERSON SCREEN'
+                style={{ width: Global_width * 0.8, height: Global_height * 0.4 }}
               />
             </View>
 

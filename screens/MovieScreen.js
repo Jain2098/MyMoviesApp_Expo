@@ -11,11 +11,7 @@ import MovieList from "../components/MovieList";
 import Loading from "../components/Loading";
 import { getSimilarMovie, getSingleMovie, img780, imgOriginal } from "../api/api";
 import { CustomImage } from "../helper/CustomImage";
-import { fallbackImg } from "../config/config";
-
-var { width, height } = Dimensions.get("window");
-const ios = Platform.OS == "ios";
-const topMargin = ios ? "" : "mt-3";
+import { Global_topMargin, Global_width, Global_height, fallbackImg } from "../config/config";
 
 export default function MovieScreen() {
   const navigation = useNavigation();
@@ -74,7 +70,7 @@ export default function MovieScreen() {
   return (
     <ScrollView contentContainerStyle={{ paddingBottom: 20 }} className='flex-1 bg-neutral-900'>
       <View className='w-full'>
-        <SafeAreaView className={`absolute z-30 w-full flex-row justify-between items-center px-4 ${topMargin}`}>
+        <SafeAreaView className={`absolute z-30 w-full flex-row justify-between items-center px-4 ${Global_topMargin}`}>
           <TouchableOpacity style={styles.background} className='rounded-xl p-1' onPress={() => navigation.goBack()}>
             <ChevronLeftIcon size={28} strokeWidth={2.5} color='white' />
           </TouchableOpacity>
@@ -89,16 +85,12 @@ export default function MovieScreen() {
         ) : (
         <>
         <View>
-          {/* <Image
-            source={sourceImg}
-            style={{ width: width, height: height * 0.6 }}
-            onError={() => setSourceImg(fallbackImg)}
-          /> */}
-          <CustomImage initialSource={posterImg} fallbackImage={fallbackImg} contentFit={"cover"} style={{ width: width, height: height * 0.6 }} />
+
+          <CustomImage initialSource={posterImg} fallbackImage={fallbackImg} contentFit={"cover"} style={{ width: Global_width, height: Global_height * 0.6 }} />
 
           <LinearGradient
             colors={["transparent", "rgba(23,23,23,0.8)", "rgba(23,23,23,1)"]}
-            style={{ width, height: height * 0.2 }}
+            style={{ width: Global_width, height: Global_height * 0.2 }}
             start={{ x: 0.5, y: 0 }}
             end={{ x: 0.5, y: 1 }}
             className='absolute bottom-0'
@@ -107,7 +99,7 @@ export default function MovieScreen() {
 
         {/* Movie Details View */}
       
-        <View style={{ marginTop: -(height * 0.09) }} className='space-y-3'>
+        <View style={{ marginTop: -(Global_height * 0.09) }} className='space-y-3'>
           {/* Title */}
           <Text className='text-white text-center text-3xl font-bold tracking-wider'>
             {movieDetails?.title?.length > 45 ? movieDetails?.title?.slice(0, 45) + "..." : movieDetails?.title}
@@ -127,8 +119,12 @@ export default function MovieScreen() {
             {movieDetails?.genres &&
               movieDetails?.genres?.map((genre, index) => {
                 return (
-                  <Text key={index} className='text-neutral-400 font-semibold text-base text-center'>
-                    {index < movieDetails.genres.length ? <ChevronRightIcon size={13} strokeWidth={2} color='grey' /> : ""} {genre.name}
+                  <Text 
+                    key={index} 
+                    className='text-blue-400 font-bold text-base text-center'
+                    onPress={() => navigation.navigate("Genre", genre)}
+                  >
+                    {index < movieDetails.genres.length ? <ChevronRightIcon size={13} strokeWidth={2} color='white' /> : ""} {genre.name}
                   </Text>
                 );
               })}
@@ -136,7 +132,7 @@ export default function MovieScreen() {
 
 
           {/* Content here */}
-          <Text className='text-neutral-400 px-4 tracking-wider text-justify'>{movieDetails?.overview}</Text>
+          <Text className='text-neutral-400 px-4 tracking-wider text-justify leading-5'>{movieDetails?.overview}</Text>
 
           {/* Cast Here */}
           {cast?.length > 0 && <Cast navigation={navigation} cast={cast} />}
