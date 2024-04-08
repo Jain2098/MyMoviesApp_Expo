@@ -13,7 +13,7 @@ const SplashScreen = ({navigation}) => {
             index: 0,
             routes: [{ name: 'Parent' }],
           });
-        }, 100);
+        }, 500);
       }, [navigation]);
 
 
