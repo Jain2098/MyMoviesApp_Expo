@@ -12,6 +12,8 @@ import Loading from "../components/Loading";
 import { getSimilarMovie, getSingleMovie, img780, imgOriginal } from "../api/api";
 import { CustomImage } from "../helper/CustomImage";
 import { Global_topMargin, Global_width, Global_height, fallbackImg } from "../config/config";
+import * as SecureStore from "expo-secure-store";
+import {addFavorites, getFavorites, removeFavorites} from "../helper/favouriteManager";
 
 export default function MovieScreen() {
   const navigation = useNavigation();
@@ -22,14 +24,25 @@ export default function MovieScreen() {
   const [similarMoviesLoading, setSimilarMoviesLoading] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
 
+
+  useEffect(() => {
+    const checkFavorite = async () => {
+      const favorites = await getFavorites('my_favorite_movies');
+      console.log(favorites);
+      setIsFavorite(favorites.includes(item.id));
+    }
+    checkFavorite();
+  }, []);
+
+
+
+
   const [movieDetails, setMovieDetails] = useState({});
   const [cast, setCast] = useState([]);
   const [similarMovies, setSimilarMovies] = useState([]);
 
   // USING IMAGE FROM ITEM INSTEAD OF MOVIE SINGLE API
   const posterImg = img780(item?.poster_path);
-  const [sourceImg, setSourceImg] = useState({ uri: posterImg });
-
 
 
   useEffect(() => {
@@ -74,7 +87,14 @@ export default function MovieScreen() {
           <TouchableOpacity style={styles.background} className='rounded-xl p-1' onPress={() => navigation.goBack()}>
             <ChevronLeftIcon size={28} strokeWidth={2.5} color='white' />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => setIsFavorite(!isFavorite)}>
+          <TouchableOpacity onPress={() => {
+            if (isFavorite) {
+              removeFavorites(ID = item.id, type='my_favorite_movies');
+            } else {
+              addFavorites(ID = item.id, type='my_favorite_movies');
+            }
+            setIsFavorite(!isFavorite);
+          }}>
             <HeartIcon size={35} color={isFavorite ? "red" : "white"} className='translate-x-4' />
           </TouchableOpacity>
         </SafeAreaView>
@@ -122,7 +142,7 @@ export default function MovieScreen() {
                   <Text 
                     key={index} 
                     className='text-blue-400 font-bold text-base text-center'
-                    onPress={() => navigation.navigate("Genre", genre)}
+                    onPress={() => navigation.push("Genre", genre)}
                   >
                     {index < movieDetails.genres.length ? <ChevronRightIcon size={13} strokeWidth={2} color='white' /> : ""} {genre.name}
                   </Text>
