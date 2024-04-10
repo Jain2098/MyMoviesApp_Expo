@@ -61,7 +61,17 @@ export default function GenreScreen() {
         <Loading />
         ) : ApiData.length > 0 ? (
           <>
-          <AchievedScreenPosts title={items.name} data={ApiData} footer={<PaginationComponent currentPage={currentPage} setCurrentPage={setCurrentPage} totalPages={totalPages} />} />
+          <AchievedScreenPosts 
+            title={items.name} 
+            data={ApiData} 
+            footer={
+              <PaginationComponent 
+                currentPage={currentPage} 
+                setCurrentPage={setCurrentPage} 
+                totalPages={totalPages} 
+              />
+            } 
+          />
           </>
           ) : (
             <View className='flex-1 justify-center items-center'>
