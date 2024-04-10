@@ -31,7 +31,9 @@
     "react-native-screens": "~3.29.0",
     "react-native-snap-carousel": "^3.9.1",
     "react-native-svg": "14.1.0",
-    "@expo/vector-icons": "^14.0.0"
+    "@expo/vector-icons": "^14.0.0",
+    "expo-updates": "~0.24.12",
+    "expo-secure-store": "~12.8.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
