@@ -1,4 +1,5 @@
 import { View, Text, ScrollView, TouchableOpacity, FlatList } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { ChevronLeftIcon } from "react-native-heroicons/solid";
 import { Global_topMargin } from "../config/config";
@@ -10,6 +11,7 @@ import { useRoute } from "@react-navigation/native";
 
 
 export default function VerticalDataScreen() {
+  const navigation = useNavigation();
   const { data } = useRoute().params;
   const { title } = useRoute().params;
   return (
