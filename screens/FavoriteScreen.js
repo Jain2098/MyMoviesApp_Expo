@@ -1,6 +1,6 @@
 import { View, Text } from 'react-native';
 import React from 'react';
-import {addFavorites, getFavorites, removeFavorites} from "../helper/favouriteManager";
+import {addFavorites, getFavorites, removeFavorites} from "../helper/favoriteManager";
 
 export default function FavoriteScreen() {
   const [favoritesMovies, setFavoritesMovies] = React.useState([]);

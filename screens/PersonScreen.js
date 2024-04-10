@@ -6,12 +6,11 @@ import { styles, theme } from "../theme/style";
 import { ChevronLeftIcon } from "react-native-heroicons/outline";
 import { HeartIcon } from "react-native-heroicons/solid";
 import MovieList from "../components/MovieList";
-import Carousel from "react-native-snap-carousel";
-import { MovieCard } from "../components/MovieCard";
 import Loading from "../components/Loading";
 import { getPersonDetails, getPersonMovies } from "../api/api";
 import { CustomImage } from "../helper/CustomImage";
 import { Global_height, Global_topMargin, Global_width, fallbackPersonImage } from "../config/config";
+import {addFavorites, getFavorites, removeFavorites} from "../helper/favoriteManager";
 
 export default function PersonScreen() {
   const navigation = useNavigation();

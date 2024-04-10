@@ -12,8 +12,7 @@ import Loading from "../components/Loading";
 import { getSimilarMovie, getSingleMovie, img780, imgOriginal } from "../api/api";
 import { CustomImage } from "../helper/CustomImage";
 import { Global_topMargin, Global_width, Global_height, fallbackImg } from "../config/config";
-import * as SecureStore from "expo-secure-store";
-import {addFavorites, getFavorites, removeFavorites} from "../helper/favouriteManager";
+import {addFavorites, getFavorites, removeFavorites} from "../helper/favoriteManager";
 
 export default function MovieScreen() {
   const navigation = useNavigation();
