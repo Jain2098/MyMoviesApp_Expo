@@ -13,6 +13,7 @@ import { getTrendingMovies, getUpcomingMovies, getTopRatedMovies } from "../api/
 import { useCustomBackAction } from "../helper/useCustomBackAction";
 import { useDrawerStatus } from "@react-navigation/drawer";
 import { Global_ios } from "../config/config";
+import { MainHeader } from "../components/MainHeader";
 
 export default function MovieHome() {
   const [trendingMovies, setTrendingMovies] = useState([]);
@@ -52,39 +53,6 @@ export default function MovieHome() {
   //   console.log("Checking....")
   //   setCurrentDrawerStatus(isDrawerOpen(navigationState));
   // }, [navigationState]);
-
-
-  const drawerStatus = useDrawerStatus();
-  const isDrawerOpen = drawerStatus === 'open';
-  const animatedValue = useRef(new Animated.Value(0)).current;
-  const animatedStyle = {
-    backgroundColor: 'rgb(38 38 38)',
-    transform: [
-      {
-        translateX: animatedValue.interpolate({
-        inputRange: [0, 1],
-        outputRange: [0, Dimensions.get('window').width * 0.25]
-      })
-    },
-      {
-        rotateY: animatedValue.interpolate({
-        inputRange: [0, 1],
-        outputRange: ['0deg', '-60deg']
-      })
-    },
-      {perspective: 800},
-    ]
-  };
-
-  useEffect(() => {
-    Animated.timing(animatedValue, {
-      toValue: isDrawerOpen ? 1 : 0,
-      duration: 500,
-      useNativeDriver: true,
-    }).start();
-  }, [isDrawerOpen, animatedValue]);
-
-
 
   useEffect(() => {
     fetchTrendingMovies();
@@ -130,8 +98,8 @@ export default function MovieHome() {
 
   const mainListData = [
     { type: "TrendingMovies", data: trendingMovies },
-    { type: "UpcomingMovies", data: upcomingMovies },
     { type: "TopRatedMovies", data: topRatedMovies },
+    { type: "UpcomingMovies", data: upcomingMovies },
   ];
 
   const renderItem = ({ item }) => {
@@ -149,35 +117,10 @@ export default function MovieHome() {
 
   return (
     <View className={`flex-1 bg-neutral-800 px-2 pb-20`}>
-    <Animated.View style={animatedStyle}>
       {/* Header */}
-      <SafeAreaView className={`${Global_ios ? "-mb-2" : "mb-3"} mt-2`}>
-        <StatusBar style='light' />
-        <View className='flex-row justify-between items-center ms-4'>
-          <TouchableOpacity style={{width:40}} onPress={() => navigation.dispatch(DrawerActions.openDrawer())}>
-            <Bars3CenterLeftIcon size='30' strokeWidth={3} color='white' />
-          </TouchableOpacity>
-          <Text className='text-white text-3xl font-bold'>
-            <Text style={styles.text}>M</Text>ovies
-          </Text>
-          <TouchableOpacity style={{width:40}} onPress={() => navigation.navigate("Search")}>
-            <MagnifyingGlassIcon size='30' strokeWidth={3} color='white' />
-          </TouchableOpacity>
-        </View>
-      </SafeAreaView>
+      <MainHeader>
       <FlatList data={mainListData} renderItem={renderItem} keyExtractor={(item) => item.type} />
-    </Animated.View>
+      </MainHeader>
     </View>
   );
 }
-
-
-// const customStyles = StyleSheet.create({
-//   style1: {
-//     transform: [
-//       {perspective: 800},
-//       {translateX: Dimensions.get('window').width * 0.25},
-//       {rotateY: '-60deg'},
-//     ]
-//   }
-// });
