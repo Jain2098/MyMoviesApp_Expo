@@ -8,7 +8,7 @@ var {height, width} = Dimensions.get('window');
 export default function Loading() {
   return (
     <View className="flex-row justify-center items-center min-w-50 min-h-50" style={{height,width}}>
-      <Progress.CircleSnail thickness={10} size={100} color={theme.background} duration={500}/>
+      <Progress.CircleSnail thickness={10} size={100} color={theme.background} duration={400}/>
     </View>
   )
 }
