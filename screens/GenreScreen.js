@@ -13,7 +13,7 @@ import PaginationComponent from "../helper/getPaginationArray";
 export default function GenreScreen() {
   const navigation = useNavigation();
   const { params: items } = useRoute();
-  // console.log(items)
+  console.log("GenreScreen: ", items)
   const [loading, setLoading] = React.useState(true);
   const [isFavorite, setIsFavorite] = React.useState(false);
   const [ApiData, setApiData] = React.useState([]);
@@ -63,7 +63,8 @@ export default function GenreScreen() {
           <>
           <AchievedScreenPosts 
             title={items.name} 
-            data={ApiData} 
+            data={ApiData}
+            type={items.type}
             footer={
               <PaginationComponent 
                 currentPage={currentPage} 

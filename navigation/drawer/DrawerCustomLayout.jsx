@@ -8,7 +8,7 @@ var ios = Platform.OS == "ios";
 const DrawerItems = ({navigation}) => {
   const topMargin = ios ? "" : "mt-5";
   const openURL = (url, e) => {
-    console.log(e)
+    // console.log(e)
     ToastAndroid.showWithGravity('Opening ' + e, ToastAndroid.SHORT, ToastAndroid.CENTER);
     // Linking.openURL(url).catch((err) => console.error('An error occurred', err));
   }

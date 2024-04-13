@@ -6,7 +6,7 @@ import { fallbackImg } from '../config/config';
 
 
 
-export const MovieCard = ({ item, handleClick, width, height, imgWidth, imgHeight }) => {
+export const MovieCard = ({ item, type, handleClick, width, height, imgWidth, imgHeight }) => {
     const url = img500(item?.poster_path);
     // console.log(item)
   return (
@@ -33,7 +33,7 @@ export const MovieCard = ({ item, handleClick, width, height, imgWidth, imgHeigh
             className='absolute bottom-0'
           />
           <View className='absolute bottom-0 left-0 right-0 p-2 rounded-b-3xl '>
-                <Text className='text-lg text-center font-semibold text-white'>{item.title}</Text>
+                <Text className='text-lg text-center font-semibold text-white'>{item.title || item.name || item.original_name}</Text>
           </View>
           {item.vote_average>0 && <View className='absolute top-0 left-0 p-2 rounded-tl-3xl rounded-br-3xl bg-red-900/70'>
                 <Text className='text-base text-center font-semibold text-white'>{parseFloat(item.vote_average.toFixed(1))}</Text>

@@ -1,5 +1,5 @@
 import { View, Text, Dimensions, Platform, ScrollView, TouchableOpacity, Image } from "react-native";
-import React from "react";
+import React, { useCallback, useContext } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { styles, theme } from "../theme/style";
@@ -7,18 +7,37 @@ import { ChevronLeftIcon } from "react-native-heroicons/outline";
 import { HeartIcon } from "react-native-heroicons/solid";
 import MovieList from "../components/MovieList";
 import Loading from "../components/Loading";
-import { getPersonDetails, getPersonMovies } from "../api/api";
+import { getPersonDetails, getPersonMovies, getPersonTv } from "../api/api";
 import { CustomImage } from "../helper/CustomImage";
 import { Global_height, Global_topMargin, Global_width, fallbackPersonImage } from "../config/config";
-import {addFavorites, getFavorites, removeFavorites} from "../helper/favoriteManager";
+import { MoviesFavoriteList_Context } from "../store/favoriteItems_store";
 
 export default function PersonScreen() {
   const navigation = useNavigation();
   const { params: item } = useRoute();
-  const [isFavorite, setIsFavorite] = React.useState(false);
+  // console.log(item)
+  
+  const contextObj = useContext(MoviesFavoriteList_Context);
+  const { favoritePeople } = contextObj;
+  const { removeFavorite, addFavoriteViaMain } = contextObj;
+
+
   const [person, setPerson] = React.useState({});
   const [personMovies, setPersonMovies] = React.useState([]);
+  const [personTv, setPersonTv] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
+
+
+  const [isFavorite, setIsFavorite] = React.useState(favoritePeople.includes(item.id));
+
+  // React.useEffect(() => {
+  //   const checkFavorite = async () => {
+  //     const favorites = await getFavorites("my_favorite_persons");
+  //     console.log(favorites);
+  //     setIsFavorite(favorites.includes(item.id));
+  //   };
+  //   checkFavorite();
+  // }, []);
 
   // console.log(item)
   // const profileImg = 'https://image.tmdb.org/t/p/original' + item?.profile_path || person?.profile_path || null;
@@ -46,10 +65,32 @@ export default function PersonScreen() {
 
   const fetchPersonMovies = async (id) => {
     try {
-      const response = await getPersonMovies(id);
-      if (response) {
-        setPersonMovies(response.cast);
-      }
+      let MovieResponse = await getPersonMovies(id);
+      let TvResponse = await getPersonTv(id);
+
+      MovieResponse = MovieResponse?.cast ?? [];
+      TvResponse = TvResponse?.cast ?? [];
+
+      const seenMovieIds = new Set();
+      const uniqueMovies = MovieResponse.filter((movie) => {
+        if (!seenMovieIds.has(movie.id)) {
+          seenMovieIds.add(movie.id);
+          return true;
+        }
+        return false;
+      });
+
+      const seenTvIds = new Set();
+      const uniqueTv = TvResponse.filter((tv) => {
+        if (!seenTvIds.has(tv.id)) {
+          seenTvIds.add(tv.id);
+          return true;
+        }
+        return false;
+      });
+
+      setPersonMovies(uniqueMovies);
+      setPersonTv(uniqueTv);
     } catch (error) {
       console.log(error);
     }
@@ -70,6 +111,18 @@ export default function PersonScreen() {
 
   const fallback = () => fallbackPersonImage(person?.gender);
 
+  const handleOnPressFavorite = useCallback(() => {
+    const id = item.id;
+    const type = "my_favorite_persons";
+    if (isFavorite) {
+      console.log("Removing Favorite: ", id, type)
+      removeFavorite(id, type);
+    } else {
+      addFavoriteViaMain(id, type);
+    }
+    setIsFavorite(!isFavorite);
+  }, [item.id, isFavorite, removeFavorite, addFavoriteViaMain]);
+
   return (
     <ScrollView className='flex-1 bg-neutral-900' contentContainerStyle={{ paddingBottom: 20 }}>
       {/* Header */}
@@ -77,7 +130,8 @@ export default function PersonScreen() {
         <TouchableOpacity style={styles.background} className='rounded-xl p-1' onPress={() => navigation.goBack()}>
           <ChevronLeftIcon size={28} strokeWidth={2.5} color='white' />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => setIsFavorite(!isFavorite)}>
+        <TouchableOpacity
+          onPress={handleOnPressFavorite}>
           <HeartIcon size={35} color={isFavorite ? theme.background : "white"} />
         </TouchableOpacity>
       </SafeAreaView>
@@ -96,11 +150,8 @@ export default function PersonScreen() {
               shadowOffset: { width: 0, height: 5 },
               shadowOpacity: 1,
               elevation: 80,
-            }}
-            >
-            <View 
-              className='items-center rounded-full overflow-hidden h-72 w-72 border-neutral-500 '
-            >
+            }}>
+            <View className='items-center rounded-full overflow-hidden h-72 w-72 border-neutral-500 '>
               <CustomImage
                 initialSource={profileImg}
                 fallbackImage={fallback}
@@ -167,7 +218,8 @@ export default function PersonScreen() {
         </View> */}
 
           {/* Person Movies */}
-          {personMovies && <MovieList title='Movies' data={personMovies} hideSeeAll={true} />}
+          {personMovies && <MovieList title='Person Movies' type='movie' data={personMovies} hideSeeAll={true} />}
+          {personMovies && <MovieList title='Person TV Shows' type='tv' data={personTv} hideSeeAll={true} />}
         </View>
       )}
     </ScrollView>

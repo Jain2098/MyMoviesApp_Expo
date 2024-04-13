@@ -26,12 +26,6 @@ export const CustomImage = ({ initialSource, fallbackImage, contentFit='scale-do
       setSource(fallbackImage);
       return;
     }
-    if (!initialSource || !isValidHttpUrl(initialSource)) {
-      // console.error("Invalid or missing initialSource:", initialSource);
-      // console.log("TYPE: ", type);
-      setSource(fallbackImage);
-      return;
-    }
     if (retryCount < maxRetries) {
       // console.log('Retrying image load...');
       // console.log("TYPE: ", type);
@@ -52,7 +46,9 @@ export const CustomImage = ({ initialSource, fallbackImage, contentFit='scale-do
             onError={handleError} 
             contentFit={contentFit} 
             onLoadStart={LoadingScreen} 
-            onLoad={()=> setLoading(false)} {...otherProps}
+            onLoad={()=> setLoading(false)}
+            
+            {...otherProps}
           />;
 };
 

@@ -14,6 +14,7 @@ export const MainHeader = ({ children }) => {
   const drawerStatus = useDrawerStatus();
   const isDrawerOpen = drawerStatus === 'open';
   const animatedValue = useRef(new Animated.Value(0)).current;
+  
 
   const menuAnimatedStyle = {
     backgroundColor: 'rgb(38 38 38)',
