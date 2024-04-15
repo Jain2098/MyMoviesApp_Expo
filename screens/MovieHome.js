@@ -192,11 +192,14 @@ export default function MovieHome() {
 
 
   return (
-    <View className={`flex-1 bg-neutral-800 px-2 pb-40`}>
+    <View className={`flex-1 bg-neutral-800 px-2 pb-32`}>
       {/* Header */}
       <MainHeader>
         <PostSwitch isChecked={isChecked} handleCheckboxChange={handleCheckboxChange} />
-        {currentView === "movie" ? <FlatList data={mainListData} renderItem={renderItem} keyExtractor={(item) => item.type} /> : 
+        {
+        currentView === "movie" ? 
+        <FlatList data={mainListData} renderItem={renderItem} keyExtractor={(item) => item.type} /> 
+        : 
         <FlatList data={mainListDataTV} renderItem={renderItem} keyExtractor={(item) => item.type} />
         }
       </MainHeader>
