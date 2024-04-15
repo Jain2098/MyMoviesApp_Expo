@@ -5,6 +5,7 @@ import { theme } from "../../theme/style";
 import { getCurrentRouteName } from "../../helper/getCurrentRouteName";
 import FavoriteScreen from "../../screens/FavoriteScreen";
 import StackNavigator from "../stack/StackNavigator";
+import BottomStack from "../stack/BottomStack";
 
 const Tab = createBottomTabNavigator();
 
@@ -14,10 +15,12 @@ export default function BottomNavigator() {
       screenOptions={{
         tabBarActiveTintColor: theme.background,
         // borderWidth: 0 has no effect, somehow the border is still there
-        tabBarStyle: { backgroundColor: "black", borderTopWidth: 0, height: 55 },
+        tabBarStyle: { backgroundColor: "black", borderTopWidth: 0, height: 50 },
         tabBarLabelStyle: { fontWeight: "bold" },
       }}>
-      {/* <Tab.Screen
+
+      {
+      /* <Tab.Screen
             name ="StackHome"
             options={{
                 headerShown: false,
@@ -56,7 +59,8 @@ export default function BottomNavigator() {
               },
             })}
         /> 
-        */}
+        */
+        }
       <Tab.Screen
         name='Home'
         component={StackNavigator} // Directly using StackNavigator here
@@ -83,10 +87,11 @@ export default function BottomNavigator() {
             if (currentTabIndex === targetTabIndex) {
               if(!noResetScreens.includes(activeScreen)){
                 console.log('Resetting to Parent')
-                navigation.reset ({
-                  index: 0,
-                  routes: [{ name: 'ResetHomeSplashScreen' }]
-                })
+                // navigation.reset ({
+                //   index: 0,
+                //   routes: [{ name: 'ResetHomeSplashScreen' }]
+                // })
+                navigation.navigate("DrawerHome");
                 return;
               }
               console.log('Already on the same screen')
@@ -97,13 +102,26 @@ export default function BottomNavigator() {
         })}
       />
       <Tab.Screen
-        name='Favorite'
+        name='BottomStack'
         options={{
           headerShown: false,
           tabBarShowLabel: false,
           tabBarIcon: ({ color }) => <HeartIcon color={color} />,
         }}
-        component={FavoriteScreen}
+        component={BottomStack}
+        // just go to the Favorite screen when the tab is pressed no matter what
+        listeners={({ navigation, route }) => ({
+          tabPress: e => {
+            e.preventDefault();
+            // navigation.navigate("BottomStack", { screen: "Favorite" });
+            const state = navigation.getState();
+            const currentRoute = getCurrentRouteName(state);
+            if (currentRoute.name !== "Favorite") {
+              navigation.navigate("BottomStack", { screen: "Favorite" });
+            }
+          }
+        })
+        }
       />
     </Tab.Navigator>
   );
