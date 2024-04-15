@@ -27,40 +27,16 @@ export default function MovieList({ title, data, type, hideSeeAll = false }) {
     [navigation, type]
   );
 
-  const MovieItem = React.memo(({ item, onPress, scale, opacity }) => {
-    const movieTitle = item?.title || item?.name || item?.original_title || item?.original_name || "No Title";
-    return (
-      <TouchableWithoutFeedback onPress={onPress}>
-        <Animated.View
-          className='space-y-1 mr-1 relative overflow-hidden mx-1'
-          style={{
-            // width: Global_width * 0.33,
-            transform: [{ scale }],
-            opacity,
-          }}>
-          <CustomImage
-            initialSource={img500(item.poster_path)}
-            fallbackImage={fallbackImg}
-            type='MOVIE CAROUSEL'
-            style={{ width: itemWidth, height: itemHeight }}
-          />
-          <Text className='text-neutral-300 ml-1 text-center'>{movieTitle.length > 14 ? movieTitle.slice(0, 14) + "..." : movieTitle}</Text>
-          {item.vote_average > 0 && (
-            <View className='absolute origin-top-left top-0 left-0 p-2 rounded-br-3xl bg-red-900/90'>
-              <Text className='text-xs font-bold text-center text-white'>{parseFloat(item.vote_average.toFixed(1))}</Text>
-            </View>
-          )}
-        </Animated.View>
-      </TouchableWithoutFeedback>
-    );
-  });
 
+
+  // RENDER ITEM FUNCTION, Used useCallback, as it memorize the function, to prevent re-rendering until unless its dependencies change
   const renderItems = useCallback(
     ({ item, index }) => {
+
       const inputRange = [
         itemWidth * (index - 1), // Previous item is centered
         itemWidth * index + 1, // Current item is centered
-        itemWidth * (index + 2.5), // Next item is centered
+        itemWidth * (index + 2.7), // Next item is centered
       ];
 
       const isFirstOrSecondItem = index === 0 || index === 1;
@@ -88,6 +64,39 @@ export default function MovieList({ title, data, type, hideSeeAll = false }) {
     [handleOnPress, scrollX, data.length]
   );
 
+  // MOVIE ITEM COMPONENT, Used React.memo, as it memorize the output, to prevent re-rendering of the component if the props are same
+  const MovieItem = React.memo(({ item, onPress, scale, opacity }) => {
+    const movieTitle = item?.title || item?.name || item?.original_title || item?.original_name || "No Title";
+    return (
+      <TouchableWithoutFeedback onPress={onPress}>
+        <Animated.View
+          className='mr-1 relative overflow-hidden mx-1'
+          style={{
+            // width: Global_width * 0.33,
+            transform: [{ scale }],
+            opacity,
+          }}>
+          <CustomImage
+            initialSource={img500(item.poster_path)}
+            fallbackImage={fallbackImg}
+            style={{ width: itemWidth, height: itemHeight }}
+          />
+          <Text className='text-neutral-300 ml-1 text-center'>{movieTitle.length > 14 ? movieTitle.slice(0, 14) + "..." : movieTitle}</Text>
+          {item.vote_average > 0 && (
+            <View className='absolute origin-top-left top-0 left-0 p-2 rounded-br-3xl bg-red-900/90'>
+              <Text className='text-xs font-bold text-center text-white'>{parseFloat(item.vote_average.toFixed(1))}</Text>
+            </View>
+          )}
+        </Animated.View>
+      </TouchableWithoutFeedback>
+    );
+  });
+
+
+
+
+
+  // MAIN FlatList
   const memoizedFlatList = useMemo(
     () => (
       <Animated.FlatList
@@ -97,11 +106,17 @@ export default function MovieList({ title, data, type, hideSeeAll = false }) {
         keyExtractor={(item) => item.id}
         showsHorizontalScrollIndicator={false}
         horizontal={true}
+        scrollEventThrottle={16}
       />
     ),
     [data, renderItems]
   );
 
+
+
+
+
+  // MAIN RETURN OF THE COMPONENT
   return (
     <View className='mb-8 space-y-4'>
       <View className='mx-4 flex-row justify-between items-center'>
