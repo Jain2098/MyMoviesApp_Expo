@@ -23,7 +23,7 @@ const DrawerItems = ({navigation}) => {
       <View style={{width:"100%"}}>
       <FlatList
         data={[
-          {icon:'home' , title:'Home', component:'Parent'},
+          {icon:'home' , title:'Home', component:'AppHome'},
           {icon:'information-circle-outline' , title:'About Us', component:'About Us'},
           {icon:'mail-outline' , title:'Contact Us', component:'Contact Us'},
         ]}
