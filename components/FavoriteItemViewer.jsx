@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
-import { getPersonDetails, getSingleMovie, img500 } from "../api/api";
+import { getSingleTV ,getPersonDetails, getSingleMovie, img500 } from "../api/api";
 import { fallbackImg, fallbackPersonImage } from "../config/config";
 import { CustomImage } from "../helper/CustomImage";
 import { useNavigation } from "@react-navigation/native";
-import { MoviesFavoriteList_Context } from "../store/favoriteItems_store";
 
 export default function FavoriteItemViewer({ id, type }) {
   const [item, setItem] = useState({});
@@ -17,6 +16,8 @@ export default function FavoriteItemViewer({ id, type }) {
       fetchMovieDetails(id);
     } else if (type === "person") {
       fetchPersonDetails(id);
+    } else if (type === "tv") {
+      fetchTvDetails(id);
     }
   }, []);
 
@@ -31,6 +32,17 @@ export default function FavoriteItemViewer({ id, type }) {
       console.log(error);
     }
   };
+
+  const fetchTvDetails = async (id) => {
+    try {
+      const response = await getSingleTV(id);
+      if (response) {
+        setItem(response);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const fetchPersonDetails = async (id) => {
     try {
@@ -64,14 +76,14 @@ export default function FavoriteItemViewer({ id, type }) {
   return (
     <>
       {type === "person" ? (
-        <TouchableOpacity className='w-3/12 m-2 rounded-full overflow-hidden' onPress={() => navigation.navigate("Person", item)}>
+        <TouchableOpacity className='w-1/5 m-2 rounded-full overflow-hidden' onPress={() => navigation.push("Person", item)}>
           <CustomImage initialSource={posterImg} fallbackImage={fallbackPersonImage(item.gender)} contentFit='cover' style={{ aspectRatio: 1 }} />
         </TouchableOpacity>
       ) : (
         <TouchableOpacity
           className='w-1/3 rounded-sm overflow-hidden'
           onPress={() =>
-            navigation.navigate("Movie", item)
+            navigation.push("Movie", item)
           }>
           <CustomImage initialSource={posterImg} fallbackImage={fallbackImg} style={{ aspectRatio: 2 / 3 }} />
         </TouchableOpacity>
