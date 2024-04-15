@@ -80,13 +80,13 @@ export default function MovieScreen() {
     }
   };
 
-  const handleOnPressFavorite = () => {
+  const handleOnPressFavorite = async () => {
     const id = item.id;
     const type = "my_favorite_movies";
     if (isFavorite) {
-      removeFavorite(id, type);
+      await removeFavorite(id, type);
     } else {
-      addFavoriteViaMain(id, type);
+      await addFavoriteViaMain(id, type);
     }
     setIsFavorite(!isFavorite);
   };
