@@ -1,5 +1,5 @@
 import { View, Text, ScrollView, TouchableOpacity, Platform, Dimensions, Image } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ChevronLeftIcon } from "react-native-heroicons/outline";
@@ -12,26 +12,20 @@ import Loading from "../components/Loading";
 import { getSimilarMovie, getSimilarTV, getSingleMovie, getSingleTV, img780, imgOriginal } from "../api/api";
 import { CustomImage } from "../helper/CustomImage";
 import { Global_topMargin, Global_width, Global_height, fallbackImg } from "../config/config";
-import {addFavorites, getFavorites, removeFavorites} from "../helper/favoriteManager";
+import { MoviesFavoriteList_Context } from "../store/favoriteItems_store";
 
 export default function TvScreen() {
   const navigation = useNavigation();
   const { params: item } = useRoute();
   // console.log(item)
 
+  const contextObj = useContext(MoviesFavoriteList_Context);
+  const { favoriteMovies } = contextObj;
+  const { removeFavorite, addFavoriteViaMain } = contextObj;
+
   const [loading, setLoading] = useState(true);
   const [similarTvLoading, setSimilarTvLoading] = useState(false);
-  const [isFavorite, setIsFavorite] = useState(false);
-
-
-  useEffect(() => {
-    const checkFavorite = async () => {
-      const favorites = await getFavorites('my_favorite_tv');
-      console.log(favorites);
-      setIsFavorite(favorites.includes(item.id));
-    }
-    checkFavorite();
-  }, [item.id]);
+  const [isFavorite, setIsFavorite] = useState(favoriteMovies.includes(item.id));
 
 
 
@@ -80,13 +74,15 @@ export default function TvScreen() {
   };
 
   const handleOnPressFavorite = async () => {
+    const id = item.id;
+    const type = "my_favorite_tv";
     if (isFavorite) {
-      removeFavorites(ID = item.id, type='my_favorite_tv');
+      await removeFavorite(id, type);
     } else {
-      addFavorites(ID = item.id, type='my_favorite_tv');
+      await addFavoriteViaMain(id, type);
     }
     setIsFavorite(!isFavorite);
-  }
+  };
 
   return (
     <ScrollView contentContainerStyle={{ paddingBottom: 20 }} className='flex-1 bg-neutral-900'>
