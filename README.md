@@ -1,52 +1,46 @@
-# Movies App 2024 Project
+# Movies App 2024 Project:
 
-## Here are Some Screenshots:
+## 1. Splash/Loading Screen
+https://github.com/Jain2098/MyMoviesApp_Expo/assets/41346368/fc5f5d91-174e-416a-b469-7430eeae0eae
 
-### 1. Splash/Loading Screen
-<video controls src="assets/01. Splash Screen.mp4" title="Splash/Loading Screen"></video>
+## 2. Home Screen
+https://github.com/Jain2098/MyMoviesApp_Expo/assets/41346368/6a6c5c67-ffec-462f-9a36-82cd0b015d54
 
-### 2. Home Screen
-<video controls src="assets/02. App Home.mp4" title="Home Screen"></video>
+## 3. Movie/TV Screen
+https://github.com/Jain2098/MyMoviesApp_Expo/assets/41346368/7dd2feea-59b3-42f3-8110-6a73d8fb82e1
 
-### 3. Movie/TV Screen
-<video controls src="assets/03. Single Screen Movie_TV.mp4" title="Movie/TV Screen"></video>
+## 4. Person Screen
+https://github.com/Jain2098/MyMoviesApp_Expo/assets/41346368/e93e73e3-9f0b-437d-b1bb-8c9ee1309653
 
-### 4. Person Screen
-<video controls src="assets/04. Person Screen.mp4" title="Person Screen"></video>
+## 5. Horizontal Scroll Animation
+https://github.com/Jain2098/MyMoviesApp_Expo/assets/41346368/1b42033f-b60d-4bea-a1d8-11060a81fbb9
 
-### 5. Horizontal Scroll Animation
-<video controls src="assets/05. Horizontal Scroll Animation.mp4" title="Horizontal Scroll Animation"></video>
+## 6. Vertical Scroll Animation
+https://github.com/Jain2098/MyMoviesApp_Expo/assets/41346368/15c99eac-4c83-43b1-af83-e5475d99704d
 
-### 6. Vertical Scroll Animation
-<video controls src="assets/06. Vertical Scroll Animation.mp4" title="Vertical Scroll Animation"></video>
+## 7. Genre Screen with Pagination
+https://github.com/Jain2098/MyMoviesApp_Expo/assets/41346368/ec9f0789-044a-4dbb-8d12-02028e978737
 
-### 7. Genre Screen with Pagination
-<video controls src="assets/07. Genre Screen with Pagination.mp4" title="Genre Screen"></video>
+## 8. App Navigation Stack Based Infinitely
+https://github.com/Jain2098/MyMoviesApp_Expo/assets/41346368/0adad8b2-1141-49a6-b933-60ad9d1460a7
 
-### 8. App Navigation Stack Based Infinitely
-<video controls src="assets/08. App Navigation Stack Based Infinitely.mp4" title="App Navigation Stack Based Infinitely"></video>
+## 9. Drawer Navigation
+https://github.com/Jain2098/MyMoviesApp_Expo/assets/41346368/825747da-f660-4bb6-93c5-2ab52bb14597
 
-### 9. Drawer Navigation
-<video controls src="assets/09. Drawer Navigation.mp4" title="Drawer Navigation"></video>
+## 10. Search Screen with Results
+https://github.com/Jain2098/MyMoviesApp_Expo/assets/41346368/b2aebe25-450c-4d0c-aad1-39699a52af3d
 
-### 10. Search Screen with Results
-<video controls src="assets/10. Search Screen with Results.mp4" title="Search Screen with Results"></video>
+## 11. Favorite Screen
+https://github.com/Jain2098/MyMoviesApp_Expo/assets/41346368/d43718d0-6deb-4a4b-900d-ced141ed83ad
 
-### 11. Favorite Screen
-<video controls src="assets/11. Favorite Screen.mp4" title="Search Screen with Results"></video>
+## 12. Home Stack and Favorite Stack with different Workflow
+#### Favourite Tab will always goes to Main Screen, However, Home Screen will stay at specific stack. On DoubleClick, it Resets the Home Stack.
+https://github.com/Jain2098/MyMoviesApp_Expo/assets/41346368/01e3faf9-0dd6-4f74-b997-c0740dca476e
 
-### 12. Home Stack and Favorite Stack with different Workflow
-<video controls src="assets/12. Home Stack and Favorite Stack with different Workflow.mp4" title="Home Stack and Favorite Stack with different Workflow"></video>
-
-
-### 13. Go Back twice to exit App
-<video controls src="assets/13. Go Back twice to exit App.mp4" title="Go Back twice to exit App"></video>
+## 13. Go Back twice to exit App
+https://github.com/Jain2098/MyMoviesApp_Expo/assets/41346368/2d419774-0a99-4939-939b-408fe92c0ccd
 
 ### & Many More...
-
-
-
-
 
 
 ## Technologies Used
