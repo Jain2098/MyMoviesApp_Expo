@@ -1,5 +1,12 @@
 # Movies App 2024 Project:
 
+## inApp Screenshots:
+![Collage 1](https://github.com/Jain2098/MyMoviesApp_Expo/assets/41346368/3ce472ba-9f47-46ca-9c7c-5a4f5923a876)
+
+![Collage 2](https://github.com/Jain2098/MyMoviesApp_Expo/assets/41346368/f981bfb8-0dc8-4156-9e87-a25765d6c4e4)
+
+
+
 ## 1. Splash/Loading Screen
 https://github.com/Jain2098/MyMoviesApp_Expo/assets/41346368/fc5f5d91-174e-416a-b469-7430eeae0eae
 
